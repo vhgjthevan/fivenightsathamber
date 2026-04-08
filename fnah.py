@@ -10,7 +10,7 @@ running = True
 pygame.display.set_caption('Five Nights at Hamber')
 
 # images (idk a better way to do this)
-room0 = pygame.image.load('Resources/room0.png')
+room = pygame.image.load('Resources/room0.png')
 
 # while loop for the game
 # all this happens when running is TRUE
@@ -47,7 +47,7 @@ while running:
     if keyis[pygame.K_EQUALS]:
         room = pygame.image.load('Resources/room11.png')
 
-    screen.blit(room0, (0,0)) # currently this image is 1280x720, same as the proportions i put in screen size
+    screen.blit(room, (0,0)) # currently this image is 1280x720, same as the proportions i put in screen size
 
     pygame.display.flip()
     dt = clock.tick(60) / 1000 # this does something i think
