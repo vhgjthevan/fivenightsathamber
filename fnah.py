@@ -19,8 +19,8 @@ while running:
         if event.type == pygame.QUIT: # hkey dont know how it works but it ends the game
             running = False
 
-    keyis = pygame.key.get_pressed() # defines keyis (key is pressed)
-    # placeholder test
+    keyis = pygame.key.get_pressed() # defines keyis (key is pressed) (can be anything thats just the name i gave to the variable)
+    # placeholder image test
     # press keys to switch 'rooms'
     if keyis[pygame.K_0]:
         room = pygame.image.load('Resources/room0.png')
