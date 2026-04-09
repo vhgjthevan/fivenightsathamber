@@ -50,10 +50,10 @@ while running:
     if keyis[pygame.K_EQUALS]:
         room = pygame.image.load('Resources/room11.png')
     if keyis[pygame.K_SPACE]:
-	if camview:
-        camview = False
-    else:
-        camview = True
+		if camview:
+			camview = False
+		else:
+			camview = True
 
     screen.blit(room, (0,0)) # currently this image is 1280x720, same as the proportions i put in screen size
 
