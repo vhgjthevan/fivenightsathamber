@@ -5,6 +5,9 @@ import random
 # initialization
 pygame.init()
 screen = pygame.display.set_mode((1280, 720)) # screen size — can be edited, prob use variables later
+# storing the screen's dimensions in variables
+scheight = screen.get_height()
+scwidth = screen.get_width()
 clock = pygame.time.Clock()
 running = True
 pygame.display.set_caption('Five Nights at Hamber')
@@ -46,8 +49,16 @@ while running:
         room = pygame.image.load('Resources/room10.png')
     if keyis[pygame.K_EQUALS]:
         room = pygame.image.load('Resources/room11.png')
+    if keyis[pygame.K_SPACE]:
+        camview = True
+    else:
+        camview = False
 
     screen.blit(room, (0,0)) # currently this image is 1280x720, same as the proportions i put in screen size
+
+    # camera window - wip
+    if camview:
+        pygame.draw.rect(screen, (89, 78, 65), (room.get_width()-10, room.get_height()-10, room.get_width()+20, room.get_height()+20))
 
     pygame.display.flip()
     dt = clock.tick(60) / 1000 # this does something i think
