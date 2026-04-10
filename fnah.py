@@ -11,6 +11,7 @@ scwidth = screen.get_width()
 clock = pygame.time.Clock()
 running = True
 pygame.display.set_caption('Five Nights at Hamber')
+camview = False
 
 # images (idk a better way to do this)
 room = pygame.image.load('Resources/room0.png')
@@ -21,6 +22,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: # hkey dont know how it works but it ends the game
             running = False
+        if event.type == pygame.KEYUP()[K_SPACE]:
+            if camview:
+                camview = False
+            else:
+                camview = True
 
     keyis = pygame.key.get_pressed() # defines keyis (key is pressed) (can be anything thats just the name i gave to the variable)
     # placeholder image test
@@ -49,11 +55,6 @@ while running:
         room = pygame.image.load('Resources/room10.png')
     if keyis[pygame.K_EQUALS]:
         room = pygame.image.load('Resources/room11.png')
-    if keyis[pygame.K_SPACE]:
-		if camview:
-			camview = False
-		else:
-			camview = True
 
     screen.blit(room, (0,0)) # currently this image is 1280x720, same as the proportions i put in screen size
 
