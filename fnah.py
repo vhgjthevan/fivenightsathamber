@@ -1,6 +1,7 @@
 import pygame
 import time
 import random
+import determinerooms as detrooms
 
 # initialization
 pygame.init()
@@ -92,7 +93,7 @@ while running:
         camstatus = True
     else:
         camstatus = False
-
+    # pan
     mx, my = pygame.mouse.get_pos()
     if camview == False:
         if mx < 150:
@@ -103,6 +104,7 @@ while running:
             imagepan = -margin * 2
         if imagepan > 0:
             imagepan = 0
+    
 
 
     pygame.display.flip()
