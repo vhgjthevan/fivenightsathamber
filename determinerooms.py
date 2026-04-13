@@ -1,4 +1,4 @@
-#return the rooms connected to current room
+#return the rooms connected to current room -> returns a list of rooms connected
 def checkconnections(room):
     connectlist=[]
     for hall in hallwaylist:
@@ -8,7 +8,7 @@ def checkconnections(room):
                     connectlist.append(i)
     return connectlist
 
-#find the room with the lowest distance value
+#find the room with the lowest distance value -> returns the rooms with the lowest dist value
 def chooseroom(room):
     dist2rooms = ["room1", "room2", "room4"]
     dist1rooms = ["room3", "room5"]
@@ -20,6 +20,7 @@ def chooseroom(room):
     else:
         startroomval = 0
     roomopts = []
+#figures out which rooms had the lowest value
     for room in checkconnections(room):
         roomoptval=100
         if room in dist2rooms:
@@ -38,13 +39,13 @@ def chooseroom(room):
 
 
 
-
+#hallways list
 hallwaya = ["room1", "room2", "room3"]
 hallwayb = ["room1", "room4"]
 hallwayc = ["room3", "room5", "room6"]
 hallwayd = ["room3", "room4"]
 hallwaylist = [hallwaya, hallwayb, hallwayc, hallwayd]
 
-
+#location is written as room#
 location=input("room: ")
 print(chooseroom(location))
