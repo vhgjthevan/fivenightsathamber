@@ -46,6 +46,8 @@ hallwayc = ["room3", "room5", "room6"]
 hallwayd = ["room3", "room4"]
 hallwaylist = [hallwaya, hallwayb, hallwayc, hallwayd]
 
+'''
 #location is written as room#
 location=input("room: ")
 print(chooseroom(location))
+'''
