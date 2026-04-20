@@ -1,13 +1,10 @@
 import pygame
-def camchangechecker(camview, camviewhelper):
-    if camviewhelper != camview:
-        camviewhelper = camview
-        print(f"camview changed to {camview}")
-        return True
-    else:
+
+def camchangechecker(camview, canviewhelper):
+    if camview == camviewhelper:
         return False
-
-
+    else:
+        return True
 
 pygame.init()
 pygame.display.set_icon(pygame.image.load('Resources/placeholders/fnah_logo.png'))
@@ -24,7 +21,7 @@ camview = False
 camviewhelper = False
 panspeed = 500
 
-camroom = pygame.transform.smoothscale(pygame.image.load('Resources/photos/hambcaf.JPG'), (500, 375))
+viewroom = pygame.transform.smoothscale(pygame.image.load('Resources/photos/hambcaf.JPG'), (500, 375))
 camroombottom = pygame.image.load('Resources/placeholders/securityofficebottom.png')
 camroommiddle = pygame.image.load('Resources/placeholders/securityofficemiddle.png')
 camroomtop = pygame.image.load('Resources/placeholders/securityofficetop.png')
@@ -44,60 +41,67 @@ while running:
                 mx, my = pygame.mouse.get_pos()
                 if mx in range(scwidth-75, scwidth) and my in range(75, 75+250):
                     if camview:
-                        print("changed camview to False")
                         camview = False
                     else:
-                        print("changed camview to True")
                         camview = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_0:
-                room = pygame.image.load('Resources/photos/hambcaf.JPG')
+                viewroom = pygame.image.load('Resources/photos/hambcaf.JPG')
             if event.key == pygame.K_1:
-                room = pygame.image.load('Resources/photos/hambclass.JPG')
+                viewroom = pygame.image.load('Resources/photos/hambclass.JPG')
             if event.key == pygame.K_2:
-                room = pygame.image.load('Resources/photos/hambhallway.JPG')
+                viewroom = pygame.image.load('Resources/photos/hambhallway.JPG')
             if event.key == pygame.K_3:
-                room = pygame.image.load('Resources/photos/hambgym.JPG')
+                viewroom = pygame.image.load('Resources/photos/hambgym.JPG')
             if event.key == pygame.K_4:
-                room = pygame.image.load('Resources/photos/hambhuddle.JPG')
+                viewroom = pygame.image.load('Resources/photos/hambhuddle.JPG')
             if event.key == pygame.K_5:
-                room = pygame.image.load('Resources/photos/hamblibrary.JPG')
+                viewroom = pygame.image.load('Resources/photos/hamblibrary.JPG')
             if event.key == pygame.K_6:
-                room = pygame.image.load('Resources/photos/hambmath.JPG')
+                viewroom = pygame.image.load('Resources/photos/hambmath.JPG')
             if event.key == pygame.K_7:
-                room = pygame.image.load('Resources/photos/hambsci.JPG')
+                viewroom = pygame.image.load('Resources/photos/hambsci.JPG')
             if event.key == pygame.K_8:
-                room = pygame.image.load('Resources/photos/hambsideent.JPG')
+                viewroom = pygame.image.load('Resources/photos/hambsideent.JPG')
             if event.key == pygame.K_9:
-                room = pygame.image.load('Resources/photos/hambstairs.JPG')
+                viewroom = pygame.image.load('Resources/photos/hambstairs.JPG')
             if event.key == pygame.K_MINUS:
-                room = pygame.image.load('Resources/placeholders/room10.png')
+                viewroom = pygame.image.load('Resources/placeholders/room10.png')
             if event.key == pygame.K_EQUALS:
-                room = pygame.image.load('Resources/placeholders/room11.png')
+                viewroom = pygame.image.load('Resources/placeholders/room11.png')
             if event.key == pygame.K_ESCAPE:
                 running = False # esc to quit
 
-
-    screen.blit(camroombottom, (imagepan, 0)) # room has three layers, enemies will be placed on the middle layer.
-    screen.blit(camroommiddle, (imagepan, 0))
-    screen.blit(camroomtop, (imagepan, 0))
-    #check if the camview var has changed
-    if camchangechecker(camview, camviewhelper):
-        if camview:
-            screen.blit(pygame.transform.smoothscale(camroom, (700, 525)), (scwidth-700-75, 0)) #first tuple contains the w/h of the scaled img. second tuple subtracts img width and cam icon width from scwidth for the x, and 0 for the y
-            screen.blit(camup, (scwidth-75, 75))
-        else:
-            screen.blit(camdown, (scwidth-75, 75))
+    #panning
     if camview == False:
         mx, my = pygame.mouse.get_pos()
         if mx<150:
             imagepan += panspeed*dt
+            panning = True
         elif mx>(scwidth-150):
             imagepan -= panspeed*dt
+            panning = True
+        else:
+            panning=False
         if imagepan < -margin*2:
             imagepan = -margin*2
         if imagepan > 0:
             imagepan = 0
+    #only resets the main room if the screen has changed
+    if panning:
+        screen.blit(camroombottom, (imagepan, 0)) # room has three layers, enemies will be placed on the middle layer.
+        screen.blit(camroommiddle, (imagepan, 0))
+        screen.blit(camroomtop, (imagepan, 0))
+    if camview:
+        screen.blit(pygame.transform.smoothscale(viewroom, (700, 525)), (scwidth-700-75, 0)) #first tuple contains the w/h of the scaled img. second tuple subtracts img width and cam icon width from scwidth for the x, and 0 for the y
+        screen.blit(camup, (scwidth-75, 75))
+    else:
+        screen.blit(camdown, (scwidth-75, 75))
+    #if the viewroom has changed, display new room
+    if camchangechecker(camview, camviewhelper):
+        camhelper = camview
+        if camview:
+            screen.blit(pygame.transform.smoothscale(viewroom, (700, 525)), (scwidth-700-75, 0))
 
     pygame.display.flip()
 
