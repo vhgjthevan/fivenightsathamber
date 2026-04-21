@@ -1,6 +1,6 @@
 import pygame
 
-def camchangechecker(camview, canviewhelper):
+def camchangechecker(camview, camviewhelper):
     if camview == camviewhelper:
         return False
     else:
@@ -99,7 +99,7 @@ while running:
         screen.blit(camdown, (scwidth-75, 75))
     #if the viewroom has changed, display new room
     if camchangechecker(camview, camviewhelper):
-        camhelper = camview
+        camviewhelper = camview
         if camview:
             screen.blit(pygame.transform.smoothscale(viewroom, (700, 525)), (scwidth-700-75, 0))
 
