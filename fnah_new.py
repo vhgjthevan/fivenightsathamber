@@ -53,7 +53,7 @@ while running:
                         camview = False
 
         if event.type == pygame.KEYUP:
-            if camview:
+            if camview and mode == "game":
                 if event.key == pygame.K_0:
                     viewroom = pygame.image.load('Resources/photos/hambcaf.JPG')
                 if event.key == pygame.K_1:
@@ -120,7 +120,8 @@ while running:
 
 
     if mode == "menu":
-        screen.blit(camup, (imagepan, 0))
+        print("MUNU")
+
 
     pygame.display.flip()
 
