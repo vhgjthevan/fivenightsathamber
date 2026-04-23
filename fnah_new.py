@@ -13,7 +13,8 @@ scheight = screen.get_height()
 scwidth = screen.get_width()
 clock = pygame.time.Clock()
 mouseis = pygame.mouse.get_pressed()[0]
-mode = 'game'
+mode = 'menu'
+menubkg = pygame.image.load('Resources/fnaftitlescreen.png')
 
 running = True
 pygame.display.set_caption('Five Nights at Hamber')
@@ -27,6 +28,8 @@ camroommiddle = pygame.image.load('Resources/placeholders/securityofficemiddle.p
 camroomtop = pygame.image.load('Resources/placeholders/securityofficetop.png')
 camdown = pygame.image.load('Resources/placeholders/cameradown.png')
 camup = pygame.image.load('Resources/placeholders/cameraup.png')
+startbutton = pygame.image.load('Resources/startbutton.png')
+settingsbutton = pygame.image.load('Resources/settingsbutton.png')
 
 margin = (camroomtop.get_width() - scwidth) / 2
 imagepan = -margin
@@ -83,6 +86,13 @@ while running:
                     camview = False #quits camview first
                 else:
                     running = False # esc to quit
+            if mode == 'menu':
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mx, my = pygame.mouse.get_pos()
+                    if mx in range(startbutton.x, startbutton.x + startbutton.get_width()) and my in range(startbutton.y, startbutton.y + startbutton.get_height()):
+                        print('menu')
+                        mode = 'game'
+
     if mode == "game":
         #panning
         if camview == False:
@@ -119,8 +129,10 @@ while running:
                 screen.blit(pygame.transform.smoothscale(viewroom, (700, 525)), (scwidth-700-75, 0))
 
 
-    if mode == "menu":
-        print("MUNU")
+    elif mode == "menu":
+        screen.blit(menubkg, (0, 0))
+        screen.blit(startbutton, (scwidth/2 - startbutton.get_width() - 25, 575))
+        screen.blit(settingsbutton, (scwidth/2 + 25, 575))
 
 
     pygame.display.flip()
