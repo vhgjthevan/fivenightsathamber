@@ -34,9 +34,11 @@ settingsbutton = pygame.image.load('Resources/settingsbutton.png')
 margin = (camroomtop.get_width() - scwidth) / 2
 imagepan = -margin
 
-screen.blit(camroombottom, (imagepan, 0))
-screen.blit(camroommiddle, (imagepan, 0))
-screen.blit(camroomtop, (imagepan, 0))
+screen.blit(menubkg, (0, 0))
+screen.blit(startbutton, (scwidth/2 - startbutton.get_width() - 25, 575))
+screen.blit(settingsbutton, (scwidth/2 + 25, 575))
+
+
 
 while running:
     dt = clock.tick(60) / 1000
@@ -54,39 +56,49 @@ while running:
                         camview = True
                     if imagepan > -margin*2:
                         camview = False
+                        (scwidth/2 - startbutton.get_width() - 25, )
+        elif mode == "menu":
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mx, my = pygame.mouse.get_pos()
+                if mx in range(scwidth//2 - startbutton.get_width() - 25, scwidth//2 - 25) and my in range(575, startbutton.get_height()+575):
+                    mode = "game"
+                    screen.blit(camroombottom, (imagepan, 0))
+                    screen.blit(camroommiddle, (imagepan, 0))
+                    screen.blit(camroomtop, (imagepan, 0))
 
         if event.type == pygame.KEYUP:
             if camview and mode == "game":
                 if event.key == pygame.K_0:
                     viewroom = pygame.image.load('Resources/photos/hambcaf.JPG')
-                if event.key == pygame.K_1:
+                elif event.key == pygame.K_1:
                     viewroom = pygame.image.load('Resources/photos/hambclass.JPG')
-                if event.key == pygame.K_2:
+                elif event.key == pygame.K_2:
                     viewroom = pygame.image.load('Resources/photos/hambhallway.JPG')
-                if event.key == pygame.K_3:
+                elif event.key == pygame.K_3:
                     viewroom = pygame.image.load('Resources/photos/hambgym.JPG')
-                if event.key == pygame.K_4:
+                elif event.key == pygame.K_4:
                     viewroom = pygame.image.load('Resources/photos/hambhuddle.JPG')
-                if event.key == pygame.K_5:
+                elif event.key == pygame.K_5:
                     viewroom = pygame.image.load('Resources/photos/hamblibrary.JPG')
-                if event.key == pygame.K_6:
+                elif event.key == pygame.K_6:
                     viewroom = pygame.image.load('Resources/photos/hambmath.JPG')
-                if event.key == pygame.K_7:
+                elif event.key == pygame.K_7:
                     viewroom = pygame.image.load('Resources/photos/hambsci.JPG')
-                if event.key == pygame.K_8:
+                elif event.key == pygame.K_8:
                     viewroom = pygame.image.load('Resources/photos/hambsideent.JPG')
-                if event.key == pygame.K_9:
+                elif event.key == pygame.K_9:
                     viewroom = pygame.image.load('Resources/photos/hambstairs.JPG')
-                if event.key == pygame.K_MINUS:
+                elif event.key == pygame.K_MINUS:
                     viewroom = pygame.image.load('Resources/placeholders/room10.png')
-                if event.key == pygame.K_EQUALS:
+                elif event.key == pygame.K_EQUALS:
                     viewroom = pygame.image.load('Resources/placeholders/room11.png')
             if event.key == pygame.K_ESCAPE:
                 if camview:
                     camview = False #quits camview first
                 else:
                     running = False # esc to quit
-            if mode == 'menu':
+
+            if mode == 'menu': #checks if start button is pressed -> makes mode game
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mx, my = pygame.mouse.get_pos()
                     if mx in range(startbutton.x, startbutton.x + startbutton.get_width()) and my in range(startbutton.y, startbutton.y + startbutton.get_height()):
@@ -129,12 +141,11 @@ while running:
                 screen.blit(pygame.transform.smoothscale(viewroom, (700, 525)), (scwidth-700-75, 0))
 
 
-    elif mode == "menu":
-        screen.blit(menubkg, (0, 0))
-        screen.blit(startbutton, (scwidth/2 - startbutton.get_width() - 25, 575))
-        screen.blit(settingsbutton, (scwidth/2 + 25, 575))
-
+   # elif mode == "menu":
 
     pygame.display.flip()
 
 pygame.quit()
+
+
+
