@@ -12,6 +12,11 @@ def blitcamroom():
     screen.blit(camroomtop, (imagepan, 0))
     screen.blit(settingscog, (-5, -5))
 
+def settingswindow():
+    #blit the settings menu over the screen
+    #make buttons visible and pressable
+    #able to be closed
+
 pygame.init()
 pygame.display.set_icon(pygame.image.load('Resources/placeholders/fnah_logo.png'))
 screen = pygame.display.set_mode((1280, 720))
@@ -43,7 +48,7 @@ imagepan = -margin
 
 screen.blit(menubkg, (0, 0))
 screen.blit(startbutton, (scwidth/2 - startbutton.get_width() - 25, 575))
-screen.blit(settingsbutton, (scwidth/2 + 25, 575))
+screen.blit(settingsbutton, (scwidth//2 + 25, 575))
 
 
 
@@ -70,6 +75,9 @@ while running:
                 if mx in range(scwidth//2 - startbutton.get_width() - 25, scwidth//2 - 25) and my in range(575, startbutton.get_height()+575):
                     mode = "game"
                     blitcamroom()
+
+                elif mx in range(scwidth//2 + 25, scwidth//2 + 25 + settingsbutton.get_width()) and my in range(575, settingsbutton.get_height()+575):
+                    settingswindow()
 
         if event.type == pygame.KEYUP:
             if camview and mode == "game":
@@ -103,13 +111,6 @@ while running:
                 else:
                     running = False # esc to quit
 
-            if mode == 'menu': #checks if start button is pressed -> makes mode game
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    mx, my = pygame.mouse.get_pos()
-                    if mx in range(startbutton.x, startbutton.x + startbutton.get_width()) and my in range(startbutton.y, startbutton.y + startbutton.get_height()):
-                        print('menu')
-                        mode = 'game'
-
     if mode == "game":
         #panning
         if camview == False:
@@ -142,6 +143,10 @@ while running:
             camviewhelper = camview
             if camview:
                 screen.blit(pygame.transform.smoothscale(viewroom, (700, 525)), (scwidth-700-75, 0))
+
+
+
+
 
 
    # elif mode == "menu":
