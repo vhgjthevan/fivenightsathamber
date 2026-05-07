@@ -13,6 +13,7 @@ def blitcamroom():
     screen.blit(settingscog, (-5, -5))
 
 def settingswindow():
+    print("")
     #blit the settings menu over the screen
     #make buttons visible and pressable
     #able to be closed
