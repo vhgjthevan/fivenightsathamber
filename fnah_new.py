@@ -13,10 +13,18 @@ def blitcamroom():
     screen.blit(settingscog, (-5, -5))
 
 def settingswindow():
-    print("")
+    settingson = True
+    #screen.blit(TBD, (0, 0))
+
     #blit the settings menu over the screen
     #make buttons visible and pressable
     #able to be closed
+
+def inbounds(obj, xmin, ymin):
+    if mx in range(xmin, xmin + obj.get_width()) and my in range(ymin, ymin + obj.get_height()):
+        return True
+    else:
+        return False
 
 pygame.init()
 pygame.display.set_icon(pygame.image.load('Resources/placeholders/fnah_logo.png'))
@@ -48,21 +56,29 @@ margin = (camroomtop.get_width() - scwidth) / 2
 imagepan = -margin
 
 screen.blit(menubkg, (0, 0))
-screen.blit(startbutton, (scwidth/2 - startbutton.get_width() - 25, 575))
+screen.blit(startbutton, (scwidth//2 - startbutton.get_width() - 25, 575))
 screen.blit(settingsbutton, (scwidth//2 + 25, 575))
 
 
 
 while running:
     dt = clock.tick(60) / 1000
+    mx, my = pygame.mouse.get_pos()
+
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             running = False
+            '''
+        if settingson:
+            #volume slider
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if mx in range (TBDx, TBDx + TBD.get_width) and my in range(TBDy, TBDy + TBD.get_height)
+ '''
 
         if mode == 'game':
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mx, my = pygame.mouse.get_pos()
-                if mx in range(scwidth-75, scwidth) and my in range(75, 75+250):
+                if inbounds(camdown, scwidth-75, 75):
                     if camview:
                         camview = False
                     else:
@@ -70,14 +86,15 @@ while running:
                     if imagepan > -margin*2:
                         camview = False
                         (scwidth/2 - startbutton.get_width() - 25, )
+
         elif mode == "menu":
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mx, my = pygame.mouse.get_pos()
-                if mx in range(scwidth//2 - startbutton.get_width() - 25, scwidth//2 - 25) and my in range(575, startbutton.get_height()+575):
+
+                if inbounds(startbutton, scwidth//2 - startbutton.get_width() - 25, 575):
                     mode = "game"
                     blitcamroom()
 
-                elif mx in range(scwidth//2 + 25, scwidth//2 + 25 + settingsbutton.get_width()) and my in range(575, settingsbutton.get_height()+575):
+                elif inbounds(settingscog, -5, -5):
                     settingswindow()
 
         if event.type == pygame.KEYUP:
@@ -106,6 +123,7 @@ while running:
                     viewroom = pygame.image.load('Resources/placeholders/room10.png')
                 elif event.key == pygame.K_EQUALS:
                     viewroom = pygame.image.load('Resources/placeholders/room11.png')
+
             if event.key == pygame.K_ESCAPE:
                 if camview:
                     camview = False #quits camview first
@@ -132,6 +150,7 @@ while running:
         #only resets the main room if the screen has changed
         if panning:
             blitcamroom()
+
         if camview:
             screen.blit(pygame.transform.smoothscale(viewroom, (700, 525)), (scwidth-700-75, 0)) #first tuple contains the w/h of the scaled img. second tuple subtracts img width and cam icon width from scwidth for the x, and 0 for the y
             screen.blit(camup, (scwidth-75, 75))
