@@ -14,7 +14,8 @@ def blitcamroom():
 
 def settingswindow():
     settingson = True
-    #screen.blit(TBD, (0, 0))
+    screen.blit(settingsbg, (scwidth//3, 0))
+    print("blitted settings")
 
     #blit the settings menu over the screen
     #make buttons visible and pressable
@@ -53,6 +54,7 @@ camdown = pygame.image.load('Resources/placeholders/cameradown.png')
 camup = pygame.image.load('Resources/placeholders/cameraup.png')
 startbutton = pygame.image.load('Resources/startbutton.png')
 settingsbutton = pygame.image.load('Resources/settingsbutton.png')
+settingsbg = pygame.image.load('Resources/settingsbox.png')
 
 margin = (camroomtop.get_width() - scwidth) / 2
 imagepan = -margin
@@ -90,15 +92,22 @@ while running:
                         camview = False
                         (scwidth/2 - startbutton.get_width() - 25, )
 
+                elif inbounds(settingscog, -5, -5):
+                    settingswindow()
+                    print("triggered settings")
+
+
         elif mode == "menu":
             if event.type == pygame.MOUSEBUTTONDOWN:
 
                 if inbounds(startbutton, scwidth//2 - startbutton.get_width() - 25, 575):
                     mode = "game"
                     blitcamroom()
-
-                elif inbounds(settingscog, -5, -5):
+                elif inbounds(settingsbutton, scwidth//2 + 25, 575):
                     settingswindow()
+                    print("triggered settings")
+
+
 
         if event.type == pygame.KEYUP:
             if camview and mode == "game":
