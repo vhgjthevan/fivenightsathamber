@@ -20,6 +20,8 @@ def settingswindow():
     #make buttons visible and pressable
     #able to be closed
 
+
+#when given an object, and an x y pos, checks if the mouse is within the bounds
 def inbounds(obj, xmin, ymin):
     if mx in range(xmin, xmin + obj.get_width()) and my in range(ymin, ymin + obj.get_height()):
         return True
@@ -73,7 +75,8 @@ while running:
         if settingson:
             #volume slider
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if mx in range (TBDx, TBDx + TBD.get_width) and my in range(TBDy, TBDy + TBD.get_height)
+                if inbounds(TBD, x, y):
+                    TBD
  '''
 
         if mode == 'game':
