@@ -12,10 +12,22 @@ def blitcamroom():
     screen.blit(camroomtop, (imagepan, 0))
     screen.blit(settingscog, (-5, -5))
 
-def settingswindow():
-    settingson = True
-    screen.blit(settingsbg, (scwidth//3, 0))
-    print("blitted settings")
+def settingswindow(settingson):
+    if settingson:
+
+        blitmenu()
+        print('settings = false')
+        settingson = False
+    else:
+        settingson = True
+        screen.blit(settingsbg, (scwidth//3, 0))
+        print("blitted settings")
+
+def blitmenu():
+    screen.blit(menubkg, (0, 0))
+    screen.blit(startbutton, (scwidth//2 - startbutton.get_width() - 25, 575))
+    screen.blit(settingsbutton, (scwidth//2 + 25, 575))
+    print('menu blit')
 
     #blit the settings menu over the screen
     #make buttons visible and pressable
@@ -44,6 +56,7 @@ pygame.display.set_caption('Five Nights at Hamber')
 camview = False
 camviewhelper = False
 panspeed = 500
+settingson = False
 
 viewroom = pygame.transform.smoothscale(pygame.image.load('Resources/photos/hambclass.JPG'), (500, 375))
 settingscog = pygame.transform.smoothscale(pygame.image.load('Resources/settingscog.png'), (75, 75))
@@ -55,14 +68,13 @@ camup = pygame.image.load('Resources/placeholders/cameraup.png')
 startbutton = pygame.image.load('Resources/startbutton.png')
 settingsbutton = pygame.image.load('Resources/settingsbutton.png')
 settingsbg = pygame.image.load('Resources/settingsbox.png')
+slider = pygame.image.load('Resources/volumesliderbar.png')
+thumb = pygame.image.load('Resources/volumesliderthumb.png')
 
 margin = (camroomtop.get_width() - scwidth) / 2
 imagepan = -margin
 
-screen.blit(menubkg, (0, 0))
-screen.blit(startbutton, (scwidth//2 - startbutton.get_width() - 25, 575))
-screen.blit(settingsbutton, (scwidth//2 + 25, 575))
-
+blitmenu()
 
 
 while running:
@@ -80,6 +92,10 @@ while running:
                 if inbounds(TBD, x, y):
                     TBD
  '''
+        if settingson:
+            screen.blit(settingsbg, (scwidth/2 - settingsbg.get_width()/2), (scheight/2 - settingsbg.get_height()/2))
+            screen.blit(slider, (scwidth/2 - slider.get_width()/2), (scheight/2 - slider.get_height()/2))
+
 
         if mode == 'game':
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -104,7 +120,7 @@ while running:
                     mode = "game"
                     blitcamroom()
                 elif inbounds(settingsbutton, scwidth//2 + 25, 575):
-                    settingswindow()
+                    settingswindow(settingson)
                     print("triggered settings")
 
 
@@ -189,3 +205,35 @@ pygame.quit()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+''' decorational spamtong
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠤⠐⠒⠒⠒⠒⠢⠤⠤⠤⠀⠄⠲⠀
+⠀⠀⠀⠀⠰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠚⢲⠀
+⠀⠀⠀⠀⠀⠁⠀⠿⠿⡿⠿⠿⢿⣶⡀⠀⠰⠋⠀⠀
+⠀⠀⠀⠀⠀⢀⣿⣿⡇⢸⣿⣿⡇⣙⡃⠠⠈⠁⠀⠀
+⠀⠀⠀⠀⠀⣄⡉⢉⣵⣮⣭⡍⠑⣿⣿⡆⠀⠤⠀⠀
+⢀⣰⣶⡶⡶⠟⠻⠻⠟⠿⠛⢁⣴⣿⠏⠁⠀⡐⠚⠀
+⠀⠀⠀⠀⠀⠈⢿⣇⠹⠉⠹⣾⣿⠏⠀⣀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⠄⠁⢾⣈⣙⣀⣿⡏⠀⠡⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠈⠀⠀⠀⢤⣤⣤⠄⠀⠀⠀⠰⠀⠀⠀⠀
+⠀⣤⣤⠁⢀⠂⡀⠀⠀⠙⠁⠀⠀⠘⢂⠀⠁⡄⠀⠀
+⠈⠙⠛⠈⠀⠀⢡⠀⠀⠀⠀⠀⢸⠀⠀⠰⢈⣿⣶⠀
+⠀⠀⠀⠀⠀⠀⠀⠰⣠⡤⣤⣤⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠙⠧⠟⠏⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+
+'''
