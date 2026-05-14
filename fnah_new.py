@@ -13,25 +13,21 @@ def blitcamroom():
     screen.blit(settingscog, (-5, -5))
 
 def settingswindow(settingson):
+    print(f"settingswindow function triggered. settingson: {settingson}")
     if settingson:
-
-        blitmenu()
-        print('settings = false')
+        blitsettingsmenu()
         settingson = False
     else:
         settingson = True
         screen.blit(settingsbg, (scwidth//3, 0))
         print("blitted settings")
+    print(f"function has finished. settingson: {settingson}")
+    return settingson
 
-def blitmenu():
+def blitsettingsmenu():
     screen.blit(menubkg, (0, 0))
     screen.blit(startbutton, (scwidth//2 - startbutton.get_width() - 25, 575))
     screen.blit(settingsbutton, (scwidth//2 + 25, 575))
-    print('menu blit')
-
-    #blit the settings menu over the screen
-    #make buttons visible and pressable
-    #able to be closed
 
 
 #when given an object, and an x y pos, checks if the mouse is within the bounds
@@ -74,7 +70,7 @@ thumb = pygame.image.load('Resources/volumesliderthumb.png')
 margin = (camroomtop.get_width() - scwidth) / 2
 imagepan = -margin
 
-blitmenu()
+blitsettingsmenu()
 
 
 while running:
@@ -85,17 +81,9 @@ while running:
 
         if event.type == pygame.QUIT:
             running = False
-            '''
-        if settingson:
-            #volume slider
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if inbounds(TBD, x, y):
-                    TBD
- '''
-        if settingson:
-            screen.blit(settingsbg, (scwidth/2 - settingsbg.get_width()/2), (scheight/2 - settingsbg.get_height()/2))
-            screen.blit(slider, (scwidth/2 - slider.get_width()/2), (scheight/2 - slider.get_height()/2))
 
+        if settingson:
+            blitsettingsmenu()
 
         if mode == 'game':
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -109,19 +97,18 @@ while running:
                         (scwidth/2 - startbutton.get_width() - 25, )
 
                 elif inbounds(settingscog, -5, -5):
-                    settingswindow()
-                    print("triggered settings")
+                    settingson = settingswindow(settingson)
 
 
         elif mode == "menu":
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONUP:
 
                 if inbounds(startbutton, scwidth//2 - startbutton.get_width() - 25, 575):
                     mode = "game"
                     blitcamroom()
                 elif inbounds(settingsbutton, scwidth//2 + 25, 575):
-                    settingswindow(settingson)
-                    print("triggered settings")
+                    settingson = settingswindow(settingson)
+                    print(f"function is done, in loop, settingson {settingson}")
 
 
 
@@ -192,26 +179,9 @@ while running:
             if camview:
                 screen.blit(pygame.transform.smoothscale(viewroom, (700, 525)), (scwidth-700-75, 0))
 
-
-
-
-
-
-   # elif mode == "menu":
-
     pygame.display.flip()
 
 pygame.quit()
-
-
-
-
-
-
-
-
-
-
 
 
 
