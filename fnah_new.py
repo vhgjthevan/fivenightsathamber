@@ -11,6 +11,9 @@ def blitcamroom():
     screen.blit(camroommiddle, (imagepan, 0))
     screen.blit(camroomtop, (imagepan, 0))
     screen.blit(settingscog, (-5, -5))
+    if settingson:
+        screen.blit(settingsbg, (scwidth//2 - settingsbg.get_width()//2, scheight//2 - settingsbg.get_height()//2))
+
 
 def settingswindow(settingson):
     print(f"settingswindow function triggered. settingson: {settingson}")
