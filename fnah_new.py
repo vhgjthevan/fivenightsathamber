@@ -15,16 +15,16 @@ def blitcamroom():
 def settingswindow(settingson):
     print(f"settingswindow function triggered. settingson: {settingson}")
     if settingson:
-        blitsettingsmenu()
+        blitstartmenu()
         settingson = False
     else:
         settingson = True
-        screen.blit(settingsbg, (scwidth//3, 0))
+        screen.blit(settingsbg, (scwidth//2 - settingsbg.get_width()//2, scheight//2 - settingsbg.get_height()//2))
         print("blitted settings")
     print(f"function has finished. settingson: {settingson}")
     return settingson
 
-def blitsettingsmenu():
+def blitstartmenu():
     screen.blit(menubkg, (0, 0))
     screen.blit(startbutton, (scwidth//2 - startbutton.get_width() - 25, 575))
     screen.blit(settingsbutton, (scwidth//2 + 25, 575))
@@ -70,7 +70,7 @@ thumb = pygame.image.load('Resources/volumesliderthumb.png')
 margin = (camroomtop.get_width() - scwidth) / 2
 imagepan = -margin
 
-blitsettingsmenu()
+blitstartmenu()
 
 
 while running:
@@ -82,9 +82,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        if settingson:
-            blitsettingsmenu()
-
         if mode == 'game':
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if inbounds(camdown, scwidth-75, 75):
@@ -94,7 +91,6 @@ while running:
                         camview = True
                     if imagepan > -margin*2:
                         camview = False
-                        (scwidth/2 - startbutton.get_width() - 25, )
 
                 elif inbounds(settingscog, -5, -5):
                     settingson = settingswindow(settingson)
@@ -106,6 +102,7 @@ while running:
                 if inbounds(startbutton, scwidth//2 - startbutton.get_width() - 25, 575):
                     mode = "game"
                     blitcamroom()
+
                 elif inbounds(settingsbutton, scwidth//2 + 25, 575):
                     settingson = settingswindow(settingson)
                     print(f"function is done, in loop, settingson {settingson}")
